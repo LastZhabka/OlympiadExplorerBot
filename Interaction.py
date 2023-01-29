@@ -84,5 +84,3 @@ def interact (message):
 				welcome(message)
 		else:
 			welcome(message)
-	
-#if message.from_user.id == 418299796:
