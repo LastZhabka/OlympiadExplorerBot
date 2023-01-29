@@ -33,6 +33,13 @@ from Query import query
 
 DatabaseCommands.init()
 
+
+#DatabaseCommands.add_olympiad_to_Database(1, "Международная Жаутыковская олимпиада", "")
+#DatabaseCommands.add_olympiad_to_Database(2, "Районный этап Республиканской олимпиады", "")
+#DatabaseCommands.add_olympiad_to_Database(3, "Областной этап Республиканской олимпиады", "")
+#DatabaseCommands.add_olympiad_to_Database(4, "Республиканская олимпиада", "")
+#DatabaseCommands.add_olympiad(1, 128, 2, "29.01.2023")
+#cc
 bot = telebot.TeleBot(APIKey(), parse_mode="Markdown")
 
 
@@ -53,8 +60,8 @@ def check_reminders():
 	os.system('python3 Reminders.py')	
 
 
-th = Thread(target=check_reminders)
-th.start()
+Reminding = Thread(target=check_reminders)
+Reminding.start()
 
 
 bot.infinity_polling()

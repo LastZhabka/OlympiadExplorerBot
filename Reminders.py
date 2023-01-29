@@ -34,12 +34,12 @@ def notify(dist, user, name) :
 		
 
 while 1 == 1 :
-	DB2 = sql.connect('test.db')
-	curs = DB2.cursor()
-	curs.execute("SELECT * FROM 'olympiads'")
-	olympiads = curs.fetchall()
-	curs.execute("SELECT * FROM 'users'")
-	users = curs.fetchall()
+	Database = sql.connect('test.db')
+	cursor = Database.cursor()
+	cursor.execute("SELECT * FROM 'olympiads'")
+	olympiads = cursor.fetchall()
+	cursor.execute("SELECT * FROM 'users'")
+	users = cursor.fetchall()
 	for olympiad in olympiads:
 		now_date = str(datetime.now().day) + "." + str(datetime.now().month) + "." + str(datetime.now().year)
 		name = DatabaseCommands.get_name(olympiad[0])

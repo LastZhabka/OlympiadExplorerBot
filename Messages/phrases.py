@@ -1,7 +1,7 @@
 # -*- coding: cp1251 -*-
 def GetPhrase(text):
 	if text == "Welcome":
-		return "\U0001F525*Добро пожаловать**!*\U0001F525\n\nДавайте вместе исследуем мир олимпиад с помощью в [Olympiad Explorer](http://t.me/Olympiad_Explorer_bot)!\n\nПодписывайтесь на [наш канал](http://t.me/OlympiadExplorer) и вступайте в [наш чат](http://t.me/OlympiadExplorerChat)."
+		return "\U0001F525*Добро пожаловать**!*\U0001F525\n\nДавайте вместе исследуем мир олимпиад с помощью [Olympiad Explorer](http://t.me/Olympiad_Explorer_bot)!\n\nПодписывайтесь на [наш канал](http://t.me/OlympiadExplorer) и вступайте в [наш чат](http://t.me/OlympiadExplorerChat)."
 	elif text == "Information":
 		return "\U0001F9E0Я здесь, чтобы помочь вам быть в курсе предстоящих олимпиад.\n\n\U000023F0Я могу отправлять вам напоминания за 1, 3, 7, 14 и 30 дней до начала любой олимпиады.\n\n\U0001F3C6Кроме того, вы можете использовать меня, чтобы найти информацию о ближайших олимпиадах и общую информацию о олимпиадах."
 	elif text == "InfoOlympiads":

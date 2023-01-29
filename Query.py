@@ -26,97 +26,95 @@ bot = telebot.TeleBot(APIKey(), parse_mode="Markdown")
 
 def query(call):					
 	if call.data == "info":
-		M = call.message
-		bot.edit_message_text(chat_id = M.chat.id, message_id = M.id, text = phrases.GetPhrase("Information"), reply_markup = BotKeyboards.keyboards("InfoMenu", call.from_user.id), disable_web_page_preview=True)
+		UserMessage = call.message
+		bot.edit_message_text(chat_id = UserMessage.chat.id, message_id = UserMessage.id, text = phrases.GetPhrase("Information"), reply_markup = BotKeyboards.keyboards("InfoMenu", call.from_user.id), disable_web_page_preview=True)
 	
 	elif call.data == "welcome":
-		M = call.message
+		UserMessage = call.message
 		out = phrases.GetPhrase("Welcome") + str("\n") + str("\n")
 		z = DatabaseCommands.get_user(call.from_user.id)
 		if z[3] == 0:
-			out = out + "\n\U0001F515*Ğ£Ğ²ĞµĞ´Ğ¾Ğ¼Ğ»ĞµĞ½Ğ¸Ñ Ğ¾Ñ‚ĞºĞ»ÑÑ‡ĞµĞ½Ñ‹*"
-		bot.edit_message_text(chat_id = M.chat.id, message_id = M.id, text = out, reply_markup = BotKeyboards.keyboards("Menu", call.from_user.id), disable_web_page_preview=True)
+			out = out + "\n\U0001F515*Óâåäîìëåíèÿ îòêëş÷åíû*"
+		bot.edit_message_text(chat_id = UserMessage.chat.id, message_id = UserMessage.id, text = out, reply_markup = BotKeyboards.keyboards("Menu", call.from_user.id), disable_web_page_preview=True)
 	
 	elif call.data == "olympiadsinfo":
-		M = call.message
-		bot.edit_message_text(chat_id = M.chat.id, message_id = M.id, text = phrases.GetPhrase("InfoOlympiads"), reply_markup = BotKeyboards.keyboards("InfoOlympiads", call.from_user.id), disable_web_page_preview=True)
+		UserMessage = call.message
+		bot.edit_message_text(chat_id = UserMessage.chat.id, message_id = UserMessage.id, text = phrases.GetPhrase("InfoOlympiads"), reply_markup = BotKeyboards.keyboards("InfoOlympiads", call.from_user.id), disable_web_page_preview=True)
 	
 	elif call.data == "settings":
-		M = call.message
-		bot.edit_message_text(chat_id = M.chat.id, message_id = M.id, text = phrases.GetPhrase("Settings"), reply_markup = BotKeyboards.keyboards("Settings", call.from_user.id), disable_web_page_preview=True)
+		UserMessage = call.message
+		bot.edit_message_text(chat_id = UserMessage.chat.id, message_id = UserMessage.id, text = phrases.GetPhrase("Settings"), reply_markup = BotKeyboards.keyboards("Settings", call.from_user.id), disable_web_page_preview=True)
 	
 	elif call.data == "subjects":
-		M = call.message
+		UserMessage = call.message
 		z = DatabaseCommands.get_user(call.from_user.id)
-		subs = [0]
+		subjectsMask = [0]
 		for j in range(1, 15):
 			if ((1<<j)&z[2]) > 0:
-				subs.append(1)
+				subjectsMask.append(1)
 			else:
-				subs.append(0)											
-		bot.edit_message_text(chat_id = M.chat.id, message_id = M.id, text = phrases.GetPhrase("Subjects"), reply_markup = BotKeyboards.keyboards("Subjects", subs), disable_web_page_preview=True)		
+				subjectsMask.append(0)											
+		bot.edit_message_text(chat_id = UserMessage.chat.id, message_id = UserMessage.id, text = phrases.GetPhrase("Subjects"), reply_markup = BotKeyboards.keyboards("Subjects", subjectsMask), disable_web_page_preview=True)		
 	
 	elif call.data == "grades":
-		M = call.message
+		UserMessage = call.message
 		z = DatabaseCommands.get_user(call.from_user.id)
-		subs = [0]
+		gradesMask = [0]
 		for j in range(1, 12):
 			if ((1<<j)&z[1]) > 0:
-				subs.append(1)
+				gradesMask.append(1)
 			else:
-				subs.append(0)		
-		bot.edit_message_text(chat_id = M.chat.id, message_id = M.id, text = phrases.GetPhrase("Grades"), reply_markup = BotKeyboards.keyboards("Grades", subs), disable_web_page_preview=True)
+				gradesMask.append(0)		
+		bot.edit_message_text(chat_id = UserMessage.chat.id, message_id = UserMessage.id, text = phrases.GetPhrase("Grades"), reply_markup = BotKeyboards.keyboards("Grades", gradesMask), disable_web_page_preview=True)
 	
 	elif call.data == "notifications":
-		M = call.message
+		UserMessage = call.message
 		z = DatabaseCommands.get_user(call.from_user.id)
-		bot.edit_message_text(chat_id = M.chat.id, message_id = M.id, text = phrases.GetPhrase("Notifications"), reply_markup = BotKeyboards.keyboards("Notifications", z[3]), disable_web_page_preview=True)
+		bot.edit_message_text(chat_id = UserMessage.chat.id, message_id = UserMessage.id, text = phrases.GetPhrase("Notifications"), reply_markup = BotKeyboards.keyboards("Notifications", z[3]), disable_web_page_preview=True)
 	
 	elif call.data == "olympiads":
-		M = call.message
-		response = "Ğ‘Ğ»Ğ¸Ğ¶Ğ°Ğ¹ÑˆĞ¸Ğµ ÑĞ¾Ğ±Ñ‹Ñ‚Ğ¸Ñ:\n\n"
+		UserMessage = call.message
+		response = "Áëèæàéøèå ñîáûòèÿ:\n\n"
 		olympiads = DatabaseCommands.get_all_olympiads(call.from_user.id)
-		indexx = 0
 		now_date = str(datetime.now().day) + "." + str(datetime.now().month) + "." + str(datetime.now().year)
-		tosortarr = []
+		DatesAndOlympiads = []
 		for olympiad in olympiads:
 			if distance(now_date, olympiad[1]) < 60:
-				indexx += 1
-				tosortarr.append([distance(now_date, olympiad[1]), olympiad[1] + " " + DatabaseCommands.get_name(olympiad[0]) + "\n\n"])
-		if len(tosortarr) == 0:
-			response = "*Ğ’ Ğ±Ğ»Ğ¸Ğ¶Ğ°Ğ¹ÑˆĞµĞµ Ğ²Ñ€ĞµĞ¼Ñ Ğ½ĞµÑ‚Ñƒ Ğ¾Ğ»Ğ¸Ğ¼Ğ¿Ğ¸Ğ°Ğ´* \U0001F622"
-		tosortarr.sort()
-		for x in tosortarr:
+				DatesAndOlympiads.append([distance(now_date, olympiad[1]), olympiad[1] + " " + DatabaseCommands.get_name(olympiad[0]) + "\n\n"])
+		if len(DatesAndOlympiads) == 0:
+			response = "*Â áëèæàéøåå âğåìÿ íåòó ñîáûòèé* \U0001F622"
+		DatesAndOlympiads.sort()
+		for x in DatesAndOlympiads:
 			response += x[1]
-		bot.edit_message_text(chat_id = M.chat.id, message_id = M.id, text = phrases.GetPhrase("DatesOlympiads") + "\n\n" + response, reply_markup = BotKeyboards.keyboards("DatesOlympiads", call.from_user.id), disable_web_page_preview=True)
+		bot.edit_message_text(chat_id = UserMessage.chat.id, message_id = UserMessage.id, text = phrases.GetPhrase("DatesOlympiads") + "\n\n" + response, reply_markup = BotKeyboards.keyboards("DatesOlympiads", call.from_user.id), disable_web_page_preview=True)
 	
 	elif call.data.find("activate") != -1:
 		que = call.data.split("|")
-		M = call.message
-		z = DatabaseCommands.get_user(call.from_user.id)
+		UserMessage = call.message
+		user = DatabaseCommands.get_user(call.from_user.id)
 		if que[1] == '1':		    
-			newvalue = z[2] ^ (1<<(int(que[2])))
+			newvalue = user[2] ^ (1<<(int(que[2])))
 			DatabaseCommands.upd_user(call.from_user.id, "subjects", newvalue)
-			z = DatabaseCommands.get_user(call.from_user.id)
-			subs = [0]
+			user = DatabaseCommands.get_user(call.from_user.id)
+			subjects = [0]
 			for j in range(1, 15):
-				if ((1<<j)&z[2]) > 0:
-					subs.append(1)
+				if ((1<<j)&user[2]) > 0:
+					subjects.append(1)
 				else:
-					subs.append(0)											
-			bot.edit_message_text(chat_id = M.chat.id, message_id = M.id, text = phrases.GetPhrase("Subjects"), reply_markup = BotKeyboards.keyboards("Subjects", subs), disable_web_page_preview=True)				
+					subjects.append(0)											
+			bot.edit_message_text(chat_id = UserMessage.chat.id, message_id = UserMessage.id, text = phrases.GetPhrase("Subjects"), reply_markup = BotKeyboards.keyboards("Subjects", subjects), disable_web_page_preview=True)				
 		elif que[1] == '2':
-			newvalue = z[1] ^ (1<<(int(que[2])))
+			newvalue = user[1] ^ (1<<(int(que[2])))
 			DatabaseCommands.upd_user(call.from_user.id, "grades", newvalue)
-			z = DatabaseCommands.get_user(call.from_user.id)
-			subs = [0]
+			user = DatabaseCommands.get_user(call.from_user.id)
+			grades = [0]
 			for j in range(1, 12):
-				if ((1<<j)&z[1]) > 0:
-					subs.append(1)
+				if ((1<<j)&user[1]) > 0:
+					grades.append(1)
 				else:
-					subs.append(0)											
-			bot.edit_message_text(chat_id = M.chat.id, message_id = M.id, text = phrases.GetPhrase("Grades"), reply_markup = BotKeyboards.keyboards("Grades", subs), disable_web_page_preview=True)				
+					grades.append(0)											
+			bot.edit_message_text(chat_id = UserMessage.chat.id, message_id = UserMessage.id, text = phrases.GetPhrase("Grades"), reply_markup = BotKeyboards.keyboards("Grades", grades), disable_web_page_preview=True)				
 		elif que[1] == '3':
-			newvalue = z[3]^1
+			newvalue = user[3]^1
 			DatabaseCommands.upd_user(call.from_user.id, "notify", newvalue)
-			bot.edit_message_text(chat_id = M.chat.id, message_id = M.id, text = phrases.GetPhrase("Notifications"), reply_markup = BotKeyboards.keyboards("Notifications", newvalue), disable_web_page_preview=True)
+			bot.edit_message_text(chat_id = UserMessage.chat.id, message_id = UserMessage.id, text = phrases.GetPhrase("Notifications"), reply_markup = BotKeyboards.keyboards("Notifications", newvalue), disable_web_page_preview=True)		
