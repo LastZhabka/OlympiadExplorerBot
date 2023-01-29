@@ -24,9 +24,6 @@ import phrases
 
 bot = telebot.TeleBot(APIKey(), parse_mode="Markdown")
 
-# add_olympiad(id, name, country, grade, subject, datentime)
-
-
 def query(call):					
 	if call.data == "info":
 		M = call.message
@@ -122,5 +119,4 @@ def query(call):
 		elif que[1] == '3':
 			newvalue = z[3]^1
 			DatabaseCommands.upd_user(call.from_user.id, "notify", newvalue)
-			bot.edit_message_text(chat_id = M.chat.id, message_id = M.id, text = phrases.GetPhrase("Notifications"), reply_markup = BotKeyboards.keyboards("Notifications", newvalue), disable_web_page_preview=True)		
-#if message.from_user.id == 418299796:
+			bot.edit_message_text(chat_id = M.chat.id, message_id = M.id, text = phrases.GetPhrase("Notifications"), reply_markup = BotKeyboards.keyboards("Notifications", newvalue), disable_web_page_preview=True)
