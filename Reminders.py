@@ -38,8 +38,6 @@ while 1 == 1 :
 	olympiads = cursor.fetchall()
 	cursor.execute("SELECT * FROM 'users'")
 	users = cursor.fetchall()
-	#kekeker = [-663493114]
-	#notify(7, kekeker, "Гей вечеринка в доме у Альты")
 	for olympiad in olympiads:
 		now_date = str(datetime.now().day) + "." + str(datetime.now().month) + "." + str(datetime.now().year)
 		name = DatabaseCommands.get_name(olympiad[0])
