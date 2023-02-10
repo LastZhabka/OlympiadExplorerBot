@@ -34,7 +34,7 @@ def welcome(message):
 			out = phrases.GetPhrase("Welcome") + str("\n") + str("\n")
 			z = DatabaseCommands.get_user(message.from_user.id)
 			if z[3] == 0:
-				out = out + "\n\U0001F515*Уведомления отключены*"
+				out = out + "\n\U0001F515*РЈРІРµРґРѕРјР»РµРЅРёСЏ РѕС‚РєР»СЋС‡РµРЅС‹*"
 			bot.send_message(message.chat.id, out, reply_markup=BotKeyboards.keyboards("Menu", message.from_user.id), disable_web_page_preview=True)
 		except:
 			print("Error")
@@ -47,7 +47,7 @@ def welcome(message):
 				out = phrases.GetPhrase("Welcome") + str("\n") + str("\n")
 				z = DatabaseCommands.get_user(message.chat.id)
 				if z[3] == 0:
-					out = out + "\n\U0001F515*Уведомления отключены*"
+					out = out + "\n\U0001F515*РЈРІРµРґРѕРјР»РµРЅРёСЏ РѕС‚РєР»СЋС‡РµРЅС‹*"
 				bot.send_message(message.chat.id, out, reply_markup=BotKeyboards.keyboards("GroupMenu", message.from_user.id), disable_web_page_preview=True)
 			except:
 				print("Error")
