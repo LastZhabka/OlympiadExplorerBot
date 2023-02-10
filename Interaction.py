@@ -33,11 +33,11 @@ def interact (message):
 			if (text[:3] == 'add'):
 				text = text[4:]
 				data = text.split("~")
-				DatabaseCommands.add_olympiad(data[0], data[2], data[3], data[1])
+				DatabaseCommands.add_olympiad(data[0], data[1], data[2], data[3])
 			elif (text[:3] == 'dda'):
 				text = text[4:]
 				data = text.split("~")
-				DatabaseCommands.add_olympiad(data[0], data[1], data[2])
+				DatabaseCommands.add_olympiad_to_Database(data[0], data[1], data[2])
 			elif(text[:3] == 'del'):
 				text = text[4:]
 				data = text.split("~")
@@ -64,7 +64,7 @@ def interact (message):
 				Database = sql.connect('test.db')
 				cursor = Database.cursor()
 				cursor.execute("SELECT * FROM 'users'")
-				response = str(len(curs.fetchall()))
+				response = str(len(cursor.fetchall()))
 				bot.send_message(message.chat.id, response)
 			elif(text[:3] == 'tim'):
 				now_date = str(datetime.now().day) + "." + str(datetime.now().month) + "." + str(datetime.now().year)
