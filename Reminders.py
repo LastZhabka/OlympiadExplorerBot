@@ -43,7 +43,7 @@ while 1 == 1 :
 		name = DatabaseCommands.get_name(olympiad[0])
 		dist = distance(now_date, olympiad[1])
 		if dist <= -1:
-			del_olympiad(olympiad[0], olympiad[1])
+			DatabaseCommands.del_olympiad(olympiad[0], olympiad[1])
 		elif dist == 1 or dist == 3 or dist == 7 or dist == 14 or dist == 30:
 			for user in users:
 				if (olympiad[2]&user[1]) != olympiad[2]	or (olympiad[3]&user[2]) != olympiad[3] or user[3] == 0:

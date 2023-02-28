@@ -12,35 +12,36 @@ def keyboards(text, activated):
 		Prefix = (text[0:5])
 		text = text[5:]
 	if text == "Menu":
-		keyboard.add(CreateButton("\U0001F9E0РРЅС„РѕСЂРјР°С†РёСЏ", Prefix + 'info'))
-		keyboard.add(CreateButton("\U000023F1РЎРѕР±С‹С‚РёСЏ", Prefix + 'olympiads'))
-		keyboard.add(CreateButton("\U00002699РќР°СЃС‚СЂРѕР№РєРё", Prefix + 'settings'))
+		keyboard.add(CreateButton("\U0001F9E0Информация", Prefix + 'info'))
+		keyboard.add(CreateButton("\U000023F1События", Prefix + 'olympiads'))
+		keyboard.add(CreateButton("\U00002699Настройки", Prefix + 'settings'))
 	if text == "InfoMenu":
-		keyboard.add(CreateButton("\U0001F324РћР»РёРјРїРёР°РґС‹", Prefix + 'olympiadsinfo'))
-		keyboard.add(CreateButton("\U000021A9РќР°Р·Р°Рґ", Prefix + 'welcome'))
+		keyboard.add(CreateButton("\U0001F324Олимпиады", Prefix + 'olympiadsinfo'))
+		keyboard.add(CreateButton("\U000021A9Назад", Prefix + 'welcome'))
 	if text == "Settings":
-		keyboard.add(CreateButton("\U0001F4D3РџСЂРµРґРјРµС‚С‹", Prefix + 'subjects'))
-		keyboard.add(CreateButton("\U0001F3EBРљР»Р°СЃСЃС‹", Prefix + 'grades'))
-		keyboard.add(CreateButton("\U0001F514РЈРІРµРґРѕРјР»РµРЅРёСЏ", Prefix + 'notifications'))
-		keyboard.add(CreateButton("\U000021A9РќР°Р·Р°Рґ", Prefix + 'welcome'))
+		keyboard.add(CreateButton("\U0001F4D3Предметы", Prefix + 'subjects'))
+		keyboard.add(CreateButton("\U0001F3EBКлассы", Prefix + 'grades'))
+		keyboard.add(CreateButton("\U0001F514Уведомления", Prefix + 'notifications'))
+		keyboard.add(CreateButton("\U000021A9Назад", Prefix + 'welcome'))
 	if text == "InfoOlympiads":
-		keyboard.add(CreateButton("\U000021A9РќР°Р·Р°Рґ", Prefix + 'info'))	
+		keyboard.add(CreateButton("\U000021A9Назад", Prefix + 'info'))	
 	if text == "Subjects":
-		subjects = ["Null", "РњР°С‚РµРјР°С‚РёРєР°", "Р¤РёР·РёРєР°", "Р‘РёРѕР»РѕРіРёСЏ", "РҐРёРјРёСЏ","РРЅС„РѕСЂРјР°С‚РёРєР°", "Р“РµРѕРіСЂР°С„РёСЏ","РђРЅРіР»РёР№СЃРєРёР№ СЏР·С‹Рє", "РСЃС‚РѕСЂРёСЏ","РљР°Р·Р°С…СЃРєРёР№ СЏР·С‹Рє (РЇ2)", "РљР°Р·Р°С…СЃРєРёР№ СЏР·С‹Рє Рё Р»РёС‚РµСЂР°С‚СѓСЂР°","РќРµРјРµС†РєРёР№ СЏР·С‹Рє", "РћСЃРЅРѕРІС‹ РїСЂР°РІР°","Р СѓСЃСЃРєРёР№ СЏР·С‹Рє (РЇ2)", "Р СѓСЃСЃРєРёР№ СЏР·С‹Рє Рё Р»РёС‚РµСЂР°С‚СѓСЂР°"]
+		subjects = ["Null", "Математика", "Физика", "Биология", "Химия","Информатика", "География","Английский язык", "История","Казахский язык (Я2)", "Казахский язык и литература","Немецкий язык", "Основы права","Русский язык (Я2)", "Русский язык и литература"]
 		emojies = ["\U0000274C", "\U00002705"]
 		for j in range(1, 15, 2):
 			keyboard.row(CreateButton(emojies[activated[j]] + subjects[j], Prefix + "activate|1|" + str(j)),CreateButton(emojies[activated[j + 1]] + subjects[j + 1], Prefix + "activate|1|" + str(j + 1))) 
-		keyboard.add(CreateButton("\U000021A9РќР°Р·Р°Рґ", Prefix + 'settings'))	
+		keyboard.add(CreateButton("\U000021A9Назад", Prefix + 'settings'))	
 	if text == "Grades":
 		emojies = ["\U0000274C", "\U00002705"]
 		for j in range(7, 11, 2):
 			keyboard.row(CreateButton(emojies[activated[j]] + str(j), Prefix + "activate|2|" + str(j)),CreateButton(emojies[activated[j + 1]] + str(j + 1), Prefix + "activate|2|" + str(j + 1))) 
 		keyboard.add(CreateButton(emojies[activated[11]] + "11", Prefix + "activate|2|11"))
-		keyboard.add(CreateButton("\U000021A9РќР°Р·Р°Рґ", Prefix + 'settings'))	
+		keyboard.add(CreateButton(emojies[activated[12]] + "Студент университета(ACM)", Prefix + "activate|2|12"))
+		keyboard.add(CreateButton("\U000021A9Назад", Prefix + 'settings'))	
 	if text == "Notifications":
-		respon = ["\U0001F515РЈРІРµРґРѕРјР»РµРЅРёСЏ РІС‹РєР»СЋС‡РµРЅС‹", "\U0001F514РЈРІРµРґРѕРјР»РµРЅРёСЏ РІРєР»СЋС‡РµРЅС‹"]
+		respon = ["\U0001F515Уведомления выключены", "\U0001F514Уведомления включены"]
 		keyboard.add(CreateButton(respon[activated], Prefix + "activate|3|1"))
-		keyboard.add(CreateButton("\U000021A9РќР°Р·Р°Рґ", Prefix + 'settings'))	
+		keyboard.add(CreateButton("\U000021A9Назад", Prefix + 'settings'))	
 	elif text == "DatesOlympiads":
-		keyboard.add(CreateButton("\U000021A9РќР°Р·Р°Рґ", Prefix + 'welcome'))					
+		keyboard.add(CreateButton("\U000021A9Назад", Prefix + 'welcome'))					
 	return keyboard

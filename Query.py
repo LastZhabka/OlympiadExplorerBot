@@ -35,7 +35,7 @@ def query(call):
 		group = True
 		userID = call.message.chat.id
 	if group == True and bot.get_chat_member(call.message.chat.id, call.from_user.id).status == 'member':
-		bot.answer_callback_query(call.id, "РўРѕР»СЊРєРѕ Р°РґРјРёРЅС‹ РјРѕРіСѓС‚ РёР·РјРµРЅСЏС‚СЊ РЅР°СЃС‚СЂРѕР№РєРё РІ РіСЂСѓРїРїРµ.", show_alert=True)
+		bot.answer_callback_query(call.id, "Настройки бота в группе может менять только админ!", show_alert=True)
 		return
 	if text == "info":
 		UserMessage = call.message
@@ -46,7 +46,7 @@ def query(call):
 		out = phrases.GetPhrase("Welcome") + str("\n") + str("\n")
 		z = DatabaseCommands.get_user(userID)
 		if z[3] == 0:
-			out = out + "\n\U0001F515*РЈРІРµРґРѕРјР»РµРЅРёСЏ РѕС‚РєР»СЋС‡РµРЅС‹*"
+			out = out + "\n\U0001F515*Уведомления отключены*"
 		bot.edit_message_text(chat_id = UserMessage.chat.id, message_id = UserMessage.id, text = out, reply_markup = BotKeyboards.keyboards(Prefix + "Menu", userID), disable_web_page_preview=True)
 	
 	elif text == "olympiadsinfo":
@@ -72,7 +72,7 @@ def query(call):
 		UserMessage = call.message
 		z = DatabaseCommands.get_user(userID)
 		gradesMask = [0]
-		for j in range(1, 12):
+		for j in range(1, 13):
 			if ((1<<j)&z[1]) > 0:
 				gradesMask.append(1)
 			else:
@@ -86,7 +86,7 @@ def query(call):
 	
 	elif text == "olympiads":
 		UserMessage = call.message
-		response = "Р‘Р»РёР¶Р°Р№С€РёРµ СЃРѕР±С‹С‚РёСЏ:\n\n"
+		response = "Ближайшие события:\n\n"
 		olympiads = DatabaseCommands.get_all_olympiads(userID)
 		now_date = str(datetime.now().day) + "." + str(datetime.now().month) + "." + str(datetime.now().year)
 		DatesAndOlympiads = []
@@ -94,7 +94,7 @@ def query(call):
 			if distance(now_date, olympiad[1]) < 60:
 				DatesAndOlympiads.append([distance(now_date, olympiad[1]), olympiad[1] + " " + DatabaseCommands.get_name(olympiad[0]) + "\n\n"])
 		if len(DatesAndOlympiads) == 0:
-			response = "*Р’ Р±Р»РёР¶Р°Р№С€РµРµ РІСЂРµРјСЏ РЅРµС‚Сѓ СЃРѕР±С‹С‚РёР№* \U0001F622"
+			response = "*В ближайшее время нету событий* \U0001F622"
 		DatesAndOlympiads.sort()
 		for x in DatesAndOlympiads:
 			response += x[1]
@@ -120,7 +120,7 @@ def query(call):
 			DatabaseCommands.upd_user(userID, "grades", newvalue)
 			user = DatabaseCommands.get_user(userID)
 			grades = [0]
-			for j in range(1, 12):
+			for j in range(1, 13):
 				if ((1<<j)&user[1]) > 0:
 					grades.append(1)
 				else:
